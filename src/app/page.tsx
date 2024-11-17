@@ -22,8 +22,8 @@ export default function Component() {
             Husky Housing
           </Link>
           <nav className="hidden md:flex space-x-4">
-            <Link href="/buy" className="hover:text-gray-300">
-              Buy
+            <Link href="/sign-in" className="hover:text-gray-300">
+              Sign-In
             </Link>
             <Link href="/sell" className="hover:text-gray-300">
               Sell

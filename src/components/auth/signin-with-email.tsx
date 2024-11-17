@@ -1,72 +1,95 @@
 "use client"
 
-import * as z from "zod";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod"
+import { useForm } from "react-hook-form"
+import { useState } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
 import {
-    Form, 
-    FormControl, 
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form"
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { LoginSchema } from "@/schemas";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { login } from "@/actions/login";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { LoginSchema } from "@/schemas"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { login } from "@/actions/login"
+import Link from "next/link"
 
 const SignInForm = () => {
-    const [success, setSuccess] = useState("")
+  const [success, setSuccess] = useState("")
 
-    // Define your form
-   const form = useForm<z.infer<typeof LoginSchema>>({
+  const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-        email: "",
-    }
-   })
+      email: "",
+    },
+  })
 
-   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
-         login(values).then((data) => {
-            setSuccess(data.success)
-         })
-   }
-
+  const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
+    login(values).then((data) => {
+      setSuccess(data.success)
+    })
+  }
 
   return (
-    <section className="flex flex-col space-y-6 items-center justify-center h-full bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
-        <Card className="w-[500px] shadow-lg">
-        <CardHeader>
-            <h2 className=" text-lg font-bold">Email Provider Authentication</h2>
-        </CardHeader>
-        <CardContent>
+    <div className="flex flex-col min-h-screen bg-gray-100">
+      <header className="bg-[#0e1837] text-white p-4">
+        <div className="container mx-auto">
+          <Link href="/" className="text-2xl font-bold">
+            Husky Housing
+          </Link>
+        </div>
+      </header>
+      <main className="flex-grow flex items-center justify-center px-4 py-12">
+        <Card className="w-full max-w-md shadow-lg">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl font-bold">Sign In</CardTitle>
+          </CardHeader>
+          <CardContent>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
-                control={form.control}
-                name="email"
-                render={({ field}) => (
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Sign in with your email</FormLabel>
-                        <FormControl>
-                            <Input {...field} placeholder="johndoe@gmail.com" />
-                        </FormControl>
-                        <FormMessage />
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input {...field} placeholder="johndoe@uconn.edu" type="email" />
+                      </FormControl>
+                      <FormMessage />
                     </FormItem>
-                    
-                )} />
-                {success && <p className="bg-green-500/20 rounded-lg text-green-500 w-full p-2.5">{success}</p>}
-                <Button type='submit' className="w-full">Continue with email</Button>
+                  )}
+                />
+                {success && (
+                  <p className="bg-green-500/20 rounded-lg text-green-700 w-full p-2.5 text-center">
+                    {success}
+                  </p>
+                )}
+                <Button type="submit" className="w-full bg-[#0e1837] hover:bg-[#1a2a4a]">
+                  Continue with Email
+                </Button>
               </form>
             </Form>
-            
-        </CardContent>
-    </Card>
-    </section>
-    
+            <div className="mt-4 text-center text-sm text-gray-600">
+              Don&apos;t have an account?{" "}
+              <Link href="/sign-up" className="text-[#0e1837] hover:underline">
+                Sign up
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      </main>
+      <footer className="bg-[#0e1837] text-white p-4">
+        <div className="container mx-auto text-center">
+          <p>&copy; 2024 Husky Housing. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
   )
 }
 
