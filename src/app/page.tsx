@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { auth } from "@/auth";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Search, Menu, ShoppingCart, Plus } from 'lucide-react'
 import Link from "next/link"
 
-export default function Component() {
+export default async function Component() {
+  const session = await auth();
   const furnitureItems = [
     { id: 1, name: "Comfortable Sofa", price: 150, image: "/placeholder.svg?height=100&width=200" },
     { id: 2, name: "Study Desk", price: 80, image: "/placeholder.svg?height=100&width=200" },
@@ -22,9 +24,17 @@ export default function Component() {
             Husky Housing
           </Link>
           <nav className="hidden md:flex space-x-4">
-            <Link href="/sign-in" className="hover:text-gray-300">
+            {session ? (
+              <Link href="/dashboard" className="hover:text-gray-300">
+              View Dashboard
+            </Link>
+            ): (
+              <Link href="/sign-in" className="hover:text-gray-300">
               Sign-In
             </Link>
+            )
+            }
+      
             <Link href="/sell" className="hover:text-gray-300">
               Sell
             </Link>
