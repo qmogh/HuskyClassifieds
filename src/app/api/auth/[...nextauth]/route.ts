@@ -17,3 +17,4 @@ const handler = NextAuth({
 });
 
 export { handler as GET, handler as POST };
+// Pre-Setup for Microsoft Auth. Revert Here if this all breaks.
