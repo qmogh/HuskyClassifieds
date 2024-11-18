@@ -1,10 +1,4 @@
 import { auth, signOut } from "@/auth";
-import SignoutButton from "@/components/auth/sign-out-button";
-import Link from "next/link"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Search, Menu, ShoppingCart, Plus } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer"
 const DashboardPage = async () => {
