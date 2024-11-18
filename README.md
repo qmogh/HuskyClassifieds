@@ -1,3 +1,5 @@
+## Hello! This is Husky Housing, a platform for UConn Students to Buy/Sell their Furniture. I'm partially building this for a job interview!
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
