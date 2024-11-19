@@ -6,6 +6,8 @@ import { auth } from "@/auth";
 import Header from "@/components/ui/Header"
 import Footer from "@/components/ui/Footer"
 import Link from "next/link"
+import { useNavigate } from 'react-router-dom';
+
 
 export default async function Home() {
   const session = await auth();
