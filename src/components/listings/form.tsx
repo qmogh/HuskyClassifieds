@@ -22,6 +22,7 @@ const ListingForm: React.FC<ListingFormProps> = ({ userId }) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   })
@@ -50,6 +51,7 @@ const ListingForm: React.FC<ListingFormProps> = ({ userId }) => {
       }
   
       setSuccessMessage("Listing submitted successfully!")
+      reset()
     } catch (error: any) {
       console.error('Form submission error:', error);
       setErrorMessage(error.message || "An unexpected error occurred.")
@@ -76,7 +78,7 @@ const ListingForm: React.FC<ListingFormProps> = ({ userId }) => {
 
       <div>
         <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-          Description
+          Description & Contact Information
         </label>
         <textarea
           id="description"
