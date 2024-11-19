@@ -75,12 +75,6 @@ const SignInForm = () => {
                 </Button>
               </form>
             </Form>
-            <div className="mt-4 text-center text-sm text-gray-600">
-              Don&apos;t have an account?{" "}
-              <Link href="/sign-up" className="text-[#0e1837] hover:underline">
-                Sign up
-              </Link>
-            </div>
           </CardContent>
         </Card>
       </main>

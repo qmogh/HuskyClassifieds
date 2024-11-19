@@ -4,7 +4,8 @@ import Footer from "@/components/ui/Footer";
 import ListingForm from "@/components/listings/form";
 import { PrismaAdapter } from "@auth/prisma-adapter"; 
 import { prisma } from "@/lib/database"
-import { redirect } from "next/navigation";  
+import { redirect } from "next/navigation"; 
+
 const getUserId = async (session: any) => {
   if (!session?.user?.email) {
     throw new Error("No user email found in session");
@@ -26,26 +27,26 @@ const getUserId = async (session: any) => {
   return user.id;
 };
 
-const DashboardPage = async () => {
+const SellPage = async () => {
   const session = await auth();
-  
+  if (!session?.user?.email) {
+    // Redirect to the sign-in page if no session is found
+    redirect("/sign-in");
+  }
+
   let userId;
   if (session?.user?.email) {
     userId = await getUserId(session);
   }
+  
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="mb-8">
-          {session ? (
-            <>
-              <h1 className="text-3xl font-bold text-center mb-4">Hi there, {session?.user?.email}!</h1>
-            </>
-          ) : (
-            redirect("/sign-in")
-          )}
+            <h1 className="text-2xl font-bold text-center mb-4">Let's get rid of that couch, {session.user.email}!</h1>
+            <ListingForm userId={userId} /> {/* Pass the userId here */}
         </div>
       </main>
       <Footer />
@@ -53,4 +54,4 @@ const DashboardPage = async () => {
   );
 };
 
-export default DashboardPage;
+export default SellPage;

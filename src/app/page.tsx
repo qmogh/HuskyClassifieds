@@ -2,10 +2,13 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Search } from 'lucide-react'
+import { auth } from "@/auth";
 import Header from "@/components/ui/Header"
 import Footer from "@/components/ui/Footer"
+import Link from "next/link"
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
   const furnitureItems = [
     { id: 1, name: "Comfortable Sofa", price: 150, image: "/placeholder.svg?height=100&width=200" },
     { id: 2, name: "Study Desk", price: 80, image: "/placeholder.svg?height=100&width=200" },
@@ -45,6 +48,18 @@ export default function Home() {
             </Card>
           ))}
         </div>
+        {!session ? (
+        <div className="mt-12 text-center">
+        <Link href="/sign-in">
+          <Button className="bg-[#0e1837] hover:bg-[#1a2a4a] text-white px-8 py-3 rounded-full text-lg font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl">
+            Want to sell your item? Sign in here!
+          </Button>
+        </Link>
+      </div>
+        ): (
+          <></>
+        )
+        }
       </main>
       <Footer />
     </div>
