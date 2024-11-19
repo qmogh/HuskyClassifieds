@@ -26,3 +26,18 @@ export const RegisterSchema = z.object({
     message: 'Name is required',
   }),
 });
+
+export const formSchema = z.object({
+  title: z.string().min(4, {
+    message: "Title must be at least 4 characters.",
+  }),
+  description: z.string().min(1, {
+    message: "Please describe your item, or any contact information.",
+  }),
+  price: z.number().nonnegative({
+    message: "Price must be 0 or more. If free, put 0.",
+  }),
+  imageUrl: z.string().url({
+    message: "Please provide a valid URL of your image.",
+  }),
+})
