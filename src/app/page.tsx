@@ -1,18 +1,16 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Search, Plus, Trash2, Edit } from 'lucide-react'
+import { Search } from 'lucide-react'
 import { auth } from "@/auth";
 import Header from "@/components/ui/Header"
 import Footer from "@/components/ui/Footer"
 import Link from "next/link"
-import { prisma } from "@/lib/database"
 import { useNavigate } from 'react-router-dom';
 
 
 export default async function Home() {
   const session = await auth();
-  const listings = await prisma.listing.findMany({})
   const furnitureItems = [
     { id: 1, name: "Comfortable Sofa", price: 150, image: "/placeholder.svg?height=100&width=200" },
     { id: 2, name: "Study Desk", price: 80, image: "/placeholder.svg?height=100&width=200" },
@@ -35,54 +33,8 @@ export default async function Home() {
               Search
             </Button>
           </div>
-          {listings.length > 0 ? (
-            <div className="pt-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {listings.map((listing) => (
-                  <Card key={listing.id} className="overflow-hidden">
-                    <CardHeader>
-                      <CardTitle className="text-xl">{listing.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      {listing.imageUrl && (
-                        <img
-                          src={listing.imageUrl}
-                          alt={listing.title}
-                          className="w-full h-48 object-cover rounded-md mb-4"
-                        />
-                      )}
-                      <p className="text-gray-600 mb-2">{listing.description}</p>
-                      <p className="text-2xl font-semibold text-[#0e1837]">${listing.price.toFixed(2)}</p>
-                    </CardContent>
-                    {/* <CardFooter className="flex justify-between">
-                      <Button variant="outline" size="sm" className="flex items-center">
-                        <Edit className="w-4 h-4 mr-2" />
-                        Edit
-                      </Button>
-                      <Button variant="destructive" size="sm" className="flex items-center">
-                        <Trash2 className="w-4 h-4 mr-2" />
-                        Delete
-                      </Button>
-                    </CardFooter> */}
-                  </Card>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <Card className="max-w-md mx-auto">
-              <CardContent className="text-center py-6">
-                <p className="text-gray-600 mb-4">You haven't posted any listings yet.</p>
-                <Link href="/sell">
-                  <Button className="bg-[#0e1837] hover:bg-[#1a2a4a] text-white px-8 py-3 rounded-full text-lg font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl">
-                    <Plus className="w-5 h-5 mr-2" />
-                    Create Your First Listing
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-          )}
         </div>
-        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {furnitureItems.map((item) => (
             <Card key={item.id}>
               <CardHeader>
@@ -97,7 +49,7 @@ export default async function Home() {
               </CardFooter>
             </Card>
           ))}
-        </div> */}
+        </div>
         {!session ? (
         <div className="mt-12 text-center">
         <Link href="/sign-in">
@@ -107,13 +59,7 @@ export default async function Home() {
         </Link>
       </div>
         ): (
-          <div className="mt-12 text-center">
-          <Link href="/sell">
-            <Button className="bg-[#0e1837] hover:bg-[#1a2a4a] text-white px-8 py-3 rounded-full text-lg font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl">
-              Want to sell your item?
-            </Button>
-          </Link>
-        </div>
+          <></>
         )
         }
       </main>
