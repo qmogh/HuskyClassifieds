@@ -7,7 +7,7 @@ import { Button,  } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Edit, Plus } from 'lucide-react'
 import Link from "next/link"
-import DeleteButton from "@/components/ui/deleteButton"
+import DeleteButton from "@/components/ui/DeleteButton"
 
 const getUserId = async (session: any) => {
   if (!session?.user?.email) {
