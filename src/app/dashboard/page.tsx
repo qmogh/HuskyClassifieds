@@ -3,10 +3,11 @@ import Header from "@/components/ui/Header"
 import Footer from "@/components/ui/Footer"
 import { prisma } from "@/lib/database"
 import { redirect } from "next/navigation"
-import { Button } from "@/components/ui/button"
+import { Button,  } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Trash2, Edit, Plus } from 'lucide-react'
+import { Edit, Plus } from 'lucide-react'
 import Link from "next/link"
+import DeleteButton from "@/components/ui/deleteButton"
 
 const getUserId = async (session: any) => {
   if (!session?.user?.email) {
@@ -71,10 +72,7 @@ export default async function DashboardPage() {
                           <Edit className="w-4 h-4 mr-2" />
                           Edit
                         </Button>
-                        <Button variant="destructive" size="sm" className="flex items-center">
-                          <Trash2 className="w-4 h-4 mr-2" />
-                          Delete
-                        </Button>
+                        <DeleteButton listingId={listing.id} />
                       </div>
                     </CardFooter>
                   </Card>
