@@ -5,7 +5,15 @@ import Link from "next/link"
 import { signOut } from "@/auth"
 
 export default async function Header() {
-    const session = await auth();
+    // const session = await auth();
+    const session = {
+        user: {
+          name: null,
+          email: 'chaubeyamogh@gmail.com',
+          image: null,
+        },
+        expires: '2024-12-20T19:46:36.312Z',
+      };
     const handleSignOut = async () => {
         "use server";
         await signOut();

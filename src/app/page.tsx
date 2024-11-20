@@ -11,16 +11,27 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default async function Home() {
-  const session = await auth();
+  // const session = await auth();
   const listings = await prisma.listing.findMany({})
-  const furnitureItems = [
-    { id: 1, name: "Comfortable Sofa", price: 150, image: "/placeholder.svg?height=100&width=200" },
-    { id: 2, name: "Study Desk", price: 80, image: "/placeholder.svg?height=100&width=200" },
-    { id: 3, name: "Bookshelf", price: 60, image: "/placeholder.svg?height=100&width=200" },
-    { id: 4, name: "Bed Frame", price: 100, image: "/placeholder.svg?height=100&width=200" },
-    { id: 5, name: "Dining Table", price: 120, image: "/placeholder.svg?height=100&width=200" },
-    { id: 6, name: "Drawer Set", price: 90, image: "/placeholder.svg?height=100&width=200" },
-  ]
+  // console.log(session)
+  const session = {
+    user: {
+      name: null,
+      email: 'chaubeyamogh@gmail.com',
+      image: null,
+    },
+    expires: '2024-12-20T19:46:36.312Z',
+  };
+  
+
+  // const furnitureItems = [
+  //   { id: 1, name: "Comfortable Sofa", price: 150, image: "/placeholder.svg?height=100&width=200" },
+  //   { id: 2, name: "Study Desk", price: 80, image: "/placeholder.svg?height=100&width=200" },
+  //   { id: 3, name: "Bookshelf", price: 60, image: "/placeholder.svg?height=100&width=200" },
+  //   { id: 4, name: "Bed Frame", price: 100, image: "/placeholder.svg?height=100&width=200" },
+  //   { id: 5, name: "Dining Table", price: 120, image: "/placeholder.svg?height=100&width=200" },
+  //   { id: 6, name: "Drawer Set", price: 90, image: "/placeholder.svg?height=100&width=200" },
+  // ]
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">

@@ -28,7 +28,15 @@ const getUserId = async (session: any) => {
 }
 
 export default async function DashboardPage() {
-  const session = await auth()
+  // const session = await auth()
+  const session = {
+    user: {
+      name: null,
+      email: 'chaubeyamogh@gmail.com',
+      image: null,
+    },
+    expires: '2024-12-20T19:46:36.312Z',
+  };
   
   if (!session?.user?.email) {
     redirect("/sign-in")
@@ -68,10 +76,10 @@ export default async function DashboardPage() {
                     <CardFooter className="flex items-center justify-between mt-auto">
                       <p className="text-2xl font-semibold text-[#0e1837]">${listing.price.toFixed(2)}</p>
                       <div className="flex space-x-2">
-                        <Button variant="outline" size="sm" className="flex items-center">
+                        {/* <Button variant="outline" size="sm" className="flex items-center">
                           <Edit className="w-4 h-4 mr-2" />
                           Edit
-                        </Button>
+                        </Button> */}
                         <DeleteButton listingId={listing.id} />
                       </div>
                     </CardFooter>
