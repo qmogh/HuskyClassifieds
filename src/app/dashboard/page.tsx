@@ -1,15 +1,16 @@
-import { auth } from "@/auth"
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 import Header from "@/components/ui/Header"
 import Footer from "@/components/ui/Footer"
 import { prisma } from "@/lib/database"
 import { redirect } from "next/navigation"
 import { Button,  } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Edit, Plus } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import Link from "next/link"
 import DeleteButton from "@/components/ui/DeleteButton"
+import { Session } from "next-auth";
 
-const getUserId = async (session: any) => {
+const getUserId = async (session: Session) => {
   if (!session?.user?.email) {
     throw new Error("No user email found in session")
   }
@@ -98,7 +99,7 @@ export default async function DashboardPage() {
           ) : (
             <Card className="max-w-md mx-auto">
               <CardContent className="text-center py-6">
-                <p className="text-gray-600 mb-4">You haven't posted any listings yet.</p>
+                <p className="text-gray-600 mb-4">You haven&apos;t posted any listings yet.</p>
                 <Link href="/sell">
                   <Button className="bg-[#0e1837] hover:bg-[#1a2a4a] text-white px-6 py-2 rounded-md flex items-center">
                     <Plus className="w-5 h-5 mr-2" />
@@ -114,3 +115,4 @@ export default async function DashboardPage() {
     </div>
   )
 }
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */

@@ -1,13 +1,11 @@
-import { auth, signOut } from "@/auth";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import ListingForm from "@/components/listings/form";
-import { PrismaAdapter } from "@auth/prisma-adapter"; 
 import { prisma } from "@/lib/database"
 import { redirect } from "next/navigation"; 
+import { Session } from "next-auth";
 
-
-const getUserId = async (session: any) => {
+const getUserId = async (session: Session) => {
   if (!session?.user?.email) {
     throw new Error("No user email found in session");
   }
@@ -54,7 +52,7 @@ const SellPage = async () => {
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="mb-8">
-            <h1 className="text-2xl font-bold text-center mb-4">Let's get rid of that couch, {session.user.email}!</h1>
+            <h1 className="text-2xl font-bold text-center mb-4">Let&apos;s get rid of that couch, {session.user.email}!</h1>
             <ListingForm userId={userId} /> {/* Pass the userId here */}
         </div>
       </main>

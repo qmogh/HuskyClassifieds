@@ -1,39 +1,44 @@
-import { PrismaAdapter } from "@auth/prisma-adapter"; 
 import { prisma } from "@/lib/database"
-import { NextResponse } from "next/server";
-
-export async function GET(request: Request, { params }: { params: { userId?: string } }) {
+import { NextRequest, NextResponse } from "next/server";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+export async function GET(request: NextRequest) {
   try {
-    const { userId } = params; // Get the userId from URL params (optional)
+    const { searchParams } = new URL(request.url);
+    const userId = searchParams.get('userId');
 
-    // If userId is provided, filter listings by userId, otherwise get all listings
     const listings = await prisma.listing.findMany({
-      where: userId ? { userId } : {}, // If userId is provided, use it for filtering
+      where: userId ? { userId } : {},
     });
 
     return NextResponse.json(listings, { status: 200 });
   } catch (error) {
+    console.error('Error fetching listings:', error);
     return NextResponse.json({ error: "Failed to retrieve listings" }, { status: 500 });
   }
 }
 
 
 
-// Delete a listing by ID
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-  try {
-    const { id } = params; // Get the ID from the URL params
+// Delete a listing by ID. Lowkey don't need this route if i just use prisma LOL
 
-    const deletedListing = await prisma.listing.delete({
-      where: { id },
-    });
+// export async function DELETE(
+//   request: NextRequest,
+//   { params }: { params: { id: string } }
+// ) {
+//   try {
+//     const id = params.id;
 
-    return NextResponse.json({ message: "Listing deleted successfully", deletedListing }, { status: 200 });
-  } catch (error) {
-    return NextResponse.json({ error: "Failed to delete listing" }, { status: 500 });
-  }
-}
+//     const deletedListing = await prisma.listing.delete({
+//       where: { id },
+//     });
 
+//     return NextResponse.json({ message: "Listing deleted successfully", deletedListing }, { status: 200 });
+//   } catch (error) {
+//     console.error('Error deleting listing:', error);
+//     return NextResponse.json({ error: "Failed to delete listing" }, { status: 500 });
+//   }
+// }
 
 export async function POST(request: Request) {
   try {
@@ -123,7 +128,7 @@ export async function POST(request: Request) {
     console.log('Successfully created listing:', newListing);
 
     return NextResponse.json(newListing, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Listing creation error:', {
       error: error.message,
       code: error.code,
@@ -144,7 +149,8 @@ export async function POST(request: Request) {
     );
   }
 }
-
+/* eslint-enable @typescript-eslint/no-explicit-any */
+/* eslint-enable @typescript-eslint/no-unused-vars */
 
 // Old route
 // export async function POST(request: Request) {

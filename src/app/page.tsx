@@ -1,13 +1,11 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Search, Plus, Trash2, Edit } from 'lucide-react'
-import { auth } from "@/auth";
+import { Card, CardContent,CardHeader, CardTitle } from "@/components/ui/card"
+import { Search, Plus, } from 'lucide-react'
 import Header from "@/components/ui/Header"
 import Footer from "@/components/ui/Footer"
 import Link from "next/link"
 import { prisma } from "@/lib/database"
-import { useNavigate } from 'react-router-dom';
 
 
 export default async function Home() {
@@ -82,7 +80,7 @@ export default async function Home() {
           ) : (
             <Card className="max-w-md mx-auto">
               <CardContent className="text-center py-6">
-                <p className="text-gray-600 mb-4">You haven't posted any listings yet.</p>
+                <p className="text-gray-600 mb-4">You haven&apos;t posted any listings yet.</p>
                 <Link href="/sell">
                   <Button className="bg-[#0e1837] hover:bg-[#1a2a4a] text-white px-8 py-3 rounded-full text-lg font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl">
                     <Plus className="w-5 h-5 mr-2" />

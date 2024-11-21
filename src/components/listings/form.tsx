@@ -1,5 +1,4 @@
 "use client"
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -52,6 +51,7 @@ const ListingForm: React.FC<ListingFormProps> = ({ userId }) => {
   
       setSuccessMessage("Listing submitted successfully!")
       reset()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any 
     } catch (error: any) {
       console.error('Form submission error:', error);
       setErrorMessage(error.message || "An unexpected error occurred.")
