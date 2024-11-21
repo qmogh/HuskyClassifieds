@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import { useState } from 'react'
@@ -6,9 +7,12 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 interface MobileMenuProps {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   session: any;
   onSignOut: () => void;
 }
+
+
 
 export function MobileMenu({ session, onSignOut }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
@@ -46,4 +50,4 @@ export function MobileMenu({ session, onSignOut }: MobileMenuProps) {
       )}
     </div>
   )
-}
+}/* eslint-enable @typescript-eslint/no-unused-vars */

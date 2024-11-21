@@ -6,6 +6,7 @@ import { z } from "zod"
 import { useState } from "react"
 import { formSchema } from "@/schemas"
 import { createListing } from "@/actions/createListings"
+// import { useNavigate } from 'react-router-dom';
 
 type FormData = z.infer<typeof formSchema>
 
@@ -14,6 +15,11 @@ interface ListingFormProps {
 }
 
 const ListingForm: React.FC<ListingFormProps> = ({ userId }) => {
+  // const navigate = useNavigate();
+
+  // const handleViewListings = () => {
+  //   navigate('/dashboard');
+  // };
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -110,12 +116,21 @@ const ListingForm: React.FC<ListingFormProps> = ({ userId }) => {
       {errorMessage && <p className="text-sm text-red-600">{errorMessage}</p>}
 
       <button
-        type="submit"
+      type="submit"
+      disabled={isSubmitting}
+      className="w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+    >
+      {isSubmitting ? "Submitting..." : "Submit Listing"}
+    </button>
+    {/* <button
+        type="button"
         disabled={isSubmitting}
-        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+        // onClick={handleViewListings}
+        className="w-full bg-white text-blue-600 border border-blue-600 py-2 px-4 rounded-md shadow hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
       >
-        {isSubmitting ? "Submitting..." : "Submit Listing"}
-      </button>
+        View Your Listings
+      </button> */}
+
     </form>
   )
 }
