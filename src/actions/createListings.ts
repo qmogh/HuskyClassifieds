@@ -28,6 +28,8 @@ export async function createListing(data: ServerFormData) {
       },
     })
 
+    console.log(newListing)
+
     revalidatePath('/') // Revalidate the home page
     revalidatePath('/dashboard') // Revalidate the dashboard
     console.log("Paths Revalidated!")

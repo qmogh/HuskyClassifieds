@@ -43,6 +43,7 @@ const ListingForm: React.FC<ListingFormProps> = ({ userId }) => {
 
       setSuccessMessage(result.success)
       reset()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('Form submission error:', error)
       setErrorMessage(error.message || "An unexpected error occurred.")

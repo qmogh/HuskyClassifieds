@@ -1,3 +1,4 @@
+// I lowkey...don't need these?? Since I'm using prisma? I learned that later though. But this is just basic CRUD. Not even really using it.
 import { prisma } from "@/lib/database"
 import { NextRequest, NextResponse } from "next/server";
 /* eslint-disable @typescript-eslint/no-explicit-any */
