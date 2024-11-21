@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import { Trash2 } from 'lucide-react'
 import { deleteListings } from "@/actions/deleteListings"
 import { useRouter } from 'next/navigation'
-import { revalidatePath } from "next/cache"
 
 export default function DeleteButton({ listingId }: { listingId: string }) {
   const router = useRouter()
@@ -12,8 +11,6 @@ export default function DeleteButton({ listingId }: { listingId: string }) {
   const handleDelete = async () => {
     const result = await deleteListings(listingId)
     if (result.success) {
-      revalidatePath('/dashboard')
-      revalidatePath('/')
       router.refresh()
     } else {
       console.error('Failed to delete listing')

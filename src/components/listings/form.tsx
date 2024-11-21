@@ -1,16 +1,16 @@
-"use client"
+'use client'
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { useState } from "react"
 import { formSchema } from "@/schemas"
-import { revalidatePath } from "next/cache"
+import { createListing } from "@/actions/createListings"
 
-// Define form data type
 type FormData = z.infer<typeof formSchema>
 
 interface ListingFormProps {
-  userId?: string; // Expecting the userId as a prop
+  userId: string; // Changed to be required
 }
 
 const ListingForm: React.FC<ListingFormProps> = ({ userId }) => {
@@ -27,41 +27,29 @@ const ListingForm: React.FC<ListingFormProps> = ({ userId }) => {
     resolver: zodResolver(formSchema),
   })
 
-
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
     setSuccessMessage(null)
     setErrorMessage(null)
-  
+
     const formData = { ...data, userId }
-  
+
     try {
-      const response = await fetch("/api/listings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      })
-  
-      const responseData = await response.json()
-  
-      if (!response.ok) {
-        throw new Error(responseData.error || "Failed to submit the listing.")
+      const result = await createListing(formData)
+
+      if ('error' in result) {
+        throw new Error(result.error)
       }
-  
-      setSuccessMessage("Listing submitted successfully!")
-      revalidatePath('/')
+
+      setSuccessMessage(result.success)
       reset()
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any 
     } catch (error: any) {
-      console.error('Form submission error:', error);
+      console.error('Form submission error:', error)
       setErrorMessage(error.message || "An unexpected error occurred.")
     } finally {
       setIsSubmitting(false)
     }
   }
-
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-lg mx-auto p-4">
