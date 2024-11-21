@@ -11,6 +11,7 @@ import { prisma } from "@/lib/database"
 export default async function Home() {
   // const session = await auth();
   const listings = await prisma.listing.findMany({})
+  console.log("Getting New Listings")
   // console.log(session)
   const session = {
     user: {
