@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { useState } from "react"
 import { formSchema } from "@/schemas"
+import { revalidatePath } from "next/cache"
 
 // Define form data type
 type FormData = z.infer<typeof formSchema>
@@ -50,6 +51,7 @@ const ListingForm: React.FC<ListingFormProps> = ({ userId }) => {
       }
   
       setSuccessMessage("Listing submitted successfully!")
+      revalidatePath('/')
       reset()
       // eslint-disable-next-line @typescript-eslint/no-explicit-any 
     } catch (error: any) {

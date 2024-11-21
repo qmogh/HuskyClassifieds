@@ -28,6 +28,8 @@ const getUserId = async (session: Session) => {
   return user.id
 }
 
+export const revalidate = 60
+
 export default async function DashboardPage() {
   // const session = await auth()
   const session = {
