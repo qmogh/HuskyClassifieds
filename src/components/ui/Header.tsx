@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { LogOut } from 'lucide-react'
 import Link from "next/link"
 import { signOut } from "@/auth"
+import { MobileMenu } from "./MobileMenu"
 
 export default async function Header() {
     // const session = await auth();
@@ -31,9 +32,7 @@ export default async function Header() {
                     <Link href="/dashboard" className="hover:text-gray-300">
                         Dashboard
                     </Link>
-                {/* </nav> */}
-                {/* <div className="flex items-center space-x-4"> */}
-                    {session ? (                
+                    {session && (
                         <Button
                             onClick={handleSignOut}
                             variant="ghost"
@@ -43,11 +42,9 @@ export default async function Header() {
                             <LogOut className="h-6 w-6" />
                             <span className="sr-only">Log Out</span>
                         </Button>
-                    ) : (
-                        <></>
                     )}
-                {/* </div> */}
                 </nav>
+                <MobileMenu session={session} onSignOut={handleSignOut} />
             </div>
         </header>
     )
