@@ -12,10 +12,11 @@ import Title from "@/components/ui/Title"
 export default async function Home({
   searchParams,
 }: {
-  searchParams: { search?: string }
+  searchParams: Promise<{ search?: string }>
 }) {
   const session = await auth()
-  const searchQuery = await searchParams.search
+  const params = await searchParams
+  const searchQuery = params.search || ''
 
   let listings
   if (searchQuery) {
