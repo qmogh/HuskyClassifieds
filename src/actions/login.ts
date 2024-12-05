@@ -19,7 +19,12 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
 
   const { email } = isValid.data;
 
-  signIn("email", { email, redirectTo: "/dashboard" });
-
+  try {
+  await signIn("email", { email, redirectTo: "/dashboard" });
   return { success: `Email sent to ${email}` };
+  } catch(error){
+    console.error("Error sending email:", error);
+    return { error: "Failed to send email. Please try again." };
+  }
 };
+
