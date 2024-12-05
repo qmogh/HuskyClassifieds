@@ -30,18 +30,9 @@ const SignInForm = () => {
   })
 
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
-    try {
-      const result = await login(values);
-      if (result.success) {
-        setSuccess(result.success);
-      } else if (result.error) {
-        // Handle error, maybe set an error state
-        console.error(result.error);
-      }
-    } catch (error) {
-      console.error("Unexpected error:", error);
-      // Handle unexpected errors
-    }
+    login(values).then((data) => {
+      setSuccess(data.success)
+    })
   }
 
   return (
