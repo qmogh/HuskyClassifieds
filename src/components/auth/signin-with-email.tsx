@@ -29,10 +29,20 @@ const SignInForm = () => {
     },
   })
 
+  // const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
+  //   login(values).then((data) => {
+  //     setSuccess(data.success)
+  //   })
+  // }
+
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
-    login(values).then((data) => {
-      setSuccess(data.success)
-    })
+    try {
+      const result = await login(values);
+      setSuccess(result.success);
+    } catch (error) {
+      console.error('Error in form submission:', error);
+      // You might want to set an error state here and display it to the user
+    }
   }
 
   return (
