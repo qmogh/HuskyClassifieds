@@ -68,6 +68,7 @@ export default {
           throw error;
         }
       },
+      maxAge: 12 * 60 * 60, 
     }),
   ],
 } satisfies NextAuthConfig;
