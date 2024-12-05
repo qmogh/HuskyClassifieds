@@ -1,5 +1,5 @@
 "use client"
-    // It works at this
+    // It works at this commit
 import * as z from "zod"
 import { useForm } from "react-hook-form"
 import { useState } from "react"
@@ -37,14 +37,13 @@ const SignInForm = () => {
 
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
     try {
-      const result = await login(values); // Login server action
-      setSuccess(result.success); // Show success message
+      const result = await login(values);
+      setSuccess(result.success);
     } catch (error) {
-      console.error("Error in form submission:", error);
-      setSuccess(""); // Reset success state to clear the indicator
+      console.error('Error in form submission:', error);
+      // You might want to set an error state here and display it to the user
     }
-  };
-  
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
