@@ -3,6 +3,7 @@ import Footer from "@/components/ui/Footer";
 import ListingForm from "@/components/listings/form";
 import { prisma } from "@/lib/database"
 import { redirect } from "next/navigation"; 
+import { auth } from "@/auth";
 
 const getUserId = async (email: string) => {
   const user = await prisma.user.findUnique({
@@ -17,15 +18,15 @@ const getUserId = async (email: string) => {
 };
 
 const SellPage = async () => {
-  // const session = await auth();
-  const session = {
-    user: {
-      name: null,
-      email: 'chaubeyamogh@gmail.com',
-      image: null,
-    },
-    expires: '2024-12-20T19:46:36.312Z',
-  };
+  const session = await auth();
+  // const session = {
+  //   user: {
+  //     name: null,
+  //     email: 'chaubeyamogh@gmail.com',
+  //     image: null,
+  //   },
+  //   expires: '2024-12-20T19:46:36.312Z',
+  // };
   
   if (!session?.user?.email) {
     redirect("/sign-in");

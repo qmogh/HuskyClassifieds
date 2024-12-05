@@ -9,6 +9,7 @@ import { Plus } from 'lucide-react'
 import Link from "next/link"
 import DeleteButton from "@/components/ui/DeleteButton"
 import { Session } from "next-auth";
+import { auth } from "@/auth"
 
 const getUserId = async (session: Session) => {
   if (!session?.user?.email) {
@@ -31,15 +32,7 @@ const getUserId = async (session: Session) => {
 export const revalidate = 60
 
 export default async function DashboardPage() {
-  // const session = await auth()
-  const session = {
-    user: {
-      name: null,
-      email: 'chaubeyamogh@gmail.com',
-      image: null,
-    },
-    expires: '2024-12-20T19:46:36.312Z',
-  };
+  const session = await auth()
   
   if (!session?.user?.email) {
     redirect("/sign-in")

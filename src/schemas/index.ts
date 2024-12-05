@@ -12,20 +12,20 @@ export const LoginSchema = z.object({
     ),
 });
 
-export const RegisterSchema = z.object({
-  email: z
-    .string()
-    .email({ message: 'Please enter a valid email address' })
-    .refine((email) => email.endsWith('@uconn.edu'), {
-      message: 'Email must end with @uconn.edu',
-    }),
-  password: z.string().min(6, {
-    message: 'Minimum 6 characters required',
-  }),
-  name: z.string().min(1, {
-    message: 'Name is required',
-  }),
-});
+// export const RegisterSchema = z.object({
+//   email: z
+//     .string()
+//     .email({ message: 'Please enter a valid email address' })
+//     .refine((email) => email.endsWith('@uconn.edu'), {
+//       message: 'Email must end with @uconn.edu',
+//     }),
+//   password: z.string().min(6, {
+//     message: 'Minimum 6 characters required',
+//   }),
+//   name: z.string().min(1, {
+//     message: 'Name is required',
+//   }),
+// });
 
 export const formSchema = z.object({
   title: z.string().min(4, {

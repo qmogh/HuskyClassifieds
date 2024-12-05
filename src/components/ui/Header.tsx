@@ -1,19 +1,19 @@
 import { Button } from "@/components/ui/button"
 import { LogOut } from 'lucide-react'
 import Link from "next/link"
-import { signOut } from "@/auth"
+import { auth, signOut } from "@/auth"
 import { MobileMenu } from "./MobileMenu"
 
 export default async function Header() {
-    // const session = await auth();
-    const session = {
-        user: {
-          name: null,
-          email: 'chaubeyamogh@gmail.com',
-          image: null,
-        },
-        expires: '2024-12-20T19:46:36.312Z',
-      };
+    const session = await auth();
+    // const session = {
+    //     user: {
+    //       name: null,
+    //       email: 'chaubeyamogh@gmail.com',
+    //       image: null,
+    //     },
+    //     expires: '2024-12-20T19:46:36.312Z',
+    //   };
     const handleSignOut = async () => {
         "use server";
         await signOut();
