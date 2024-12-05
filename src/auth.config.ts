@@ -31,6 +31,10 @@ export default {
       id: 'email',
       name: 'email',
       server: {
+        secure: true, 
+        tls: {
+          rejectUnauthorized: false // Only use this for testing, remove in production
+        },
         host: process.env.EMAIL_SERVER_HOST,
         port: Number(process.env.EMAIL_SERVER_PORT),
         auth: {
@@ -40,19 +44,24 @@ export default {
       },
       from: process.env.EMAIL_FROM,
       sendVerificationRequest: async ({ identifier, url, provider }) => {
-        const { server, from } = provider;
-        const transport = nodemailer.createTransport(server);
-        const result = await transport.sendMail({
-          to: identifier,
-          from: from,
-          subject: "Sign in to Husky Classifieds",
-          text: `Sign in to Husky Classifieds: ${url}`,
-          html: emailTemplate(url, identifier),
-        });
-        const failed = result.rejected.concat(result.pending).filter(Boolean);
-        if (failed.length) {
-          console.error(`Failed to send to: ${failed.join(", ")}`);
-          throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`);
+        try {
+          const { server, from } = provider;
+          const transport = nodemailer.createTransport(server);
+          const result = await transport.sendMail({
+            to: identifier,
+            from: from,
+            subject: "Sign in to Husky Classifieds",
+            text: `Sign in to Husky Classifieds: ${url}`,
+            html: emailTemplate(url, identifier),
+          });
+          console.log('Email sent successfully:', result);
+          const failed = result.rejected.concat(result.pending).filter(Boolean);
+          if (failed.length) {
+            throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`);
+          }
+        } catch (error) {
+          console.error('Error sending email:', error);
+          throw error;
         }
       },
     }),
