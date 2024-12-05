@@ -19,7 +19,6 @@
 //     })],
 // } satisfies NextAuthConfig
 
-
 import NodeMailer from "next-auth/providers/nodemailer";
 import nodemailer from "nodemailer";
 import type { NextAuthConfig } from "next-auth";
@@ -43,8 +42,11 @@ export default {
         console.log('Starting email send process');
         try {
           const { server, from } = provider;
+          console.log('Email server configuration:', JSON.stringify(server));
           console.log('Creating transport');
           const transport = nodemailer.createTransport(server);
+          console.log('Transport created');
+          
           console.log('Sending mail');
           const result = await transport.sendMail({
             to: identifier,
@@ -53,7 +55,8 @@ export default {
             text: `Sign in to Husky Classifieds: ${url}`,
             html: emailTemplate(url, identifier),
           });
-          console.log('Mail sent, checking for failures');
+          console.log('Mail sent, result:', JSON.stringify(result));
+          
           const failed = result.rejected.concat(result.pending).filter(Boolean);
           if (failed.length) {
             console.error(`Failed to send to: ${failed.join(", ")}`);
@@ -68,4 +71,3 @@ export default {
     }),
   ],
 } satisfies NextAuthConfig;
-
