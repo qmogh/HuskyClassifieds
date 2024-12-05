@@ -13,10 +13,14 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+
 export const metadata: Metadata = {
-  title: "Husky Housing!",
-  description: "Buy/Sell Furniture for UConn Students",
-};
+  title: {
+    default: 'Husky Classifieds',
+    template: '%s | Husky Classifieds',
+  },
+  description: 'Buy and sell for UConn students',
+}
 
 export default function RootLayout({
   children,

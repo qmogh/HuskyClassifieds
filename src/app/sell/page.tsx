@@ -4,6 +4,12 @@ import ListingForm from "@/components/listings/form";
 import { prisma } from "@/lib/database"
 import { redirect } from "next/navigation"; 
 import { auth } from "@/auth";
+import { Metadata } from "next";
+
+
+export const metadata: Metadata = {
+  title: 'Sell',
+}
 
 const getUserId = async (email: string) => {
   const user = await prisma.user.findUnique({

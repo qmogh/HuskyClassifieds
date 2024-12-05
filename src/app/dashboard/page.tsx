@@ -10,7 +10,11 @@ import Link from "next/link"
 import DeleteButton from "@/components/ui/DeleteButton"
 import { Session } from "next-auth";
 import { auth } from "@/auth"
+import { Metadata } from 'next'
 
+export const metadata: Metadata = {
+  title: 'Dashboard',
+}
 const getUserId = async (session: Session) => {
   if (!session?.user?.email) {
     throw new Error("No user email found in session")
