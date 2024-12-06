@@ -23,7 +23,7 @@ export default async function Header() {
         <header className="bg-[#0e1837] text-white p-4">
             <div className="container mx-auto flex justify-between items-center">
                 <Link href="/" className="text-2xl font-bold">
-                    Husky Housing
+                    Husky Classifieds
                 </Link>
                 <nav className="hidden md:flex items-center space-x-10">
                     <Link href="/sell" className="hover:text-gray-300">
