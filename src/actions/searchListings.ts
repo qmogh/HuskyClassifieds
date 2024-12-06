@@ -20,11 +20,18 @@ export async function searchListings(query: string) {
 }
 
 
+
 export async function searchFreeListings(query: string) {
   try {
     const listings = await prisma.listing.findMany({
       where: {
         AND: [
+          {
+            OR: [
+              { title: { contains: query, mode: 'insensitive' } },
+              { description: { contains: query, mode: 'insensitive' } },
+            ],
+          },
           {
             OR: [
               { title: { contains: "free", mode: 'insensitive' } },

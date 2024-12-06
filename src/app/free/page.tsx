@@ -8,7 +8,6 @@ import { prisma } from "@/lib/database"
 import SearchComponent from "@/components/ui/SearchComponent"
 import { searchFreeListings } from "@/actions/searchListings"
 import { auth } from "@/auth"
-import Title from "@/components/ui/Title"
 export default async function Home({
   searchParams,
 }: {
