@@ -26,8 +26,11 @@ export default async function Header() {
                     Husky Classifieds
                 </Link>
                 <nav className="hidden md:flex items-center space-x-10">
+                    <Link href="/free" className="hover:text-gray-100">
+                    Free!
+                    </Link>
                     <Link href="/sell" className="hover:text-gray-300">
-                        Sell!
+                        Sell
                     </Link>
                     <Link href="/dashboard" className="hover:text-gray-300">
                         Dashboard
