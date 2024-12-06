@@ -33,12 +33,6 @@ export async function searchFreeListings(query: string) {
             ],
           },
           {
-            OR: [
-              { title: { contains: "free", mode: 'insensitive' } },
-              { description: { contains: "free", mode: 'insensitive' } },
-            ],
-          },
-          {
             price: {
               equals: 0,
             },

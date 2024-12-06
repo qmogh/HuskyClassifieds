@@ -17,29 +17,19 @@ export default async function Home({
   const params = await searchParams
   const searchQuery = params.search || ''
 
-  let listings
+  let listings;
+
   if (searchQuery) {
     listings = await searchFreeListings(searchQuery);
   } else {
     listings = await prisma.listing.findMany({
       where: {
-        AND: [
-          {
-            OR: [
-              { title: { contains: "free", mode: 'insensitive' } },
-              { description: { contains: "free", mode: 'insensitive' } },
-            ],
-          },
-          {
-            price: {
-              equals: 0,
-            },
-          },
-        ],
+        price: {
+          equals: 0,
+        },
       },
     });
   }
-
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
