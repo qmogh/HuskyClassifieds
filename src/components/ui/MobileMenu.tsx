@@ -30,8 +30,11 @@ export function MobileMenu({ session, onSignOut }: MobileMenuProps) {
       {isOpen && (
         <div className="absolute top-16 left-0 right-0 bg-[#0e1837] p-4 z-50">
           <nav className="flex flex-col space-y-4">
+          <Link href="/free" className="text-white hover:text-gray-300">
+              Free!
+            </Link>
             <Link href="/sell" className="text-white hover:text-gray-300">
-              Sell!
+              Sell
             </Link>
             <Link href="/dashboard" className="text-white hover:text-gray-300">
               Dashboard
