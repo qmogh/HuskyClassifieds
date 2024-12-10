@@ -39,15 +39,15 @@ export default {
       },
       from: process.env.EMAIL_FROM,
       sendVerificationRequest: async ({ identifier, url, provider }) => {
-        console.error('Starting email send process');
+        console.log('Starting email send process');
         try {
           const { server, from } = provider;
-          console.error('Email server configuration:', JSON.stringify(server));
-          console.error('Creating transport');
+          console.log('Email server configuration:', JSON.stringify(server));
+          console.log('Creating transport');
           const transport = nodemailer.createTransport(server);
-          console.error('Transport created');
+          console.log('Transport created');
           
-          console.error('Sending mail');
+          console.log('Sending mail');
           const result = await transport.sendMail({
             to: identifier,
             from: from,
@@ -55,14 +55,14 @@ export default {
             text: `Sign in to Husky Classifieds: ${url}`,
             html: emailTemplate(url, identifier),
           });
-          console.error('Mail sent, result:', JSON.stringify(result));
+          console.log('Mail sent, result:', JSON.stringify(result));
           
           const failed = result.rejected.concat(result.pending).filter(Boolean);
           if (failed.length) {
             console.error(`Failed to send to: ${failed.join(", ")}`);
             throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`);
           }
-          console.error('Email sent successfully');
+          console.log('Email sent successfully');
         } catch (error) {
           console.error('Error in sendVerificationRequest:', error);
           throw error;
