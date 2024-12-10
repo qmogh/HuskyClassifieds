@@ -7,7 +7,6 @@ import { signIn } from "@/auth";
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   try {
     const isValid = LoginSchema.safeParse(values);
-    console.error('Validation result:', JSON.stringify(isValid));
 
     if (!isValid.success) {
       throw new Error("Email is not valid");
@@ -15,16 +14,19 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
 
     const { email } = isValid.data;
 
-    console.error('Calling signIn');
-    await signIn("email", { email, redirectTo: "/dashboard" });
-    console.error('signIn completed');
+    const result = await signIn("email", { email, redirect: false });
+
+    if (result?.error) {
+      throw new Error(result.error);
+    }
 
     return { success: `Email sent to ${email}` };
   } catch (error) {
-    console.error('Error in login action:', error);
+    console.error("Error in login action:", error);
     throw error;
   }
 };
+
 
 
 // "use server";
