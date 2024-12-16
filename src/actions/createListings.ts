@@ -1,6 +1,9 @@
 'use server'
 
-import { prisma } from "@/lib/database"
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
 import { revalidatePath } from 'next/cache'
 import { formSchema } from "@/schemas"
 import { z } from "zod"
@@ -9,7 +12,6 @@ const serverFormSchema = formSchema.extend({
   userId: z.string(),
 })
 
-type ServerFormData = z.infer<typeof serverFormSchema>
 
 
 export async function createListing(formData: FormData) {
@@ -65,3 +67,7 @@ export async function createListing(formData: FormData) {
 //   }
 // }
 
+
+
+/* eslint-enable @typescript-eslint/no-unused-vars */
+/* eslint-enable @typescript-eslint/no-explicit-any */

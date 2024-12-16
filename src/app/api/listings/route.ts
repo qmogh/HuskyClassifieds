@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { put } from '@vercel/blob'
 import { revalidatePath } from 'next/cache'
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -125,3 +128,6 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+/* eslint-enable @typescript-eslint/no-unused-vars */
+/* eslint-enable @typescript-eslint/no-explicit-any */

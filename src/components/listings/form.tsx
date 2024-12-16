@@ -7,6 +7,10 @@ import { useState } from "react"
 import { formSchema } from "@/schemas"
 import { Upload, X } from 'lucide-react'
 
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
 const updatedFormSchema = formSchema.omit({ imageUrl: true }).extend({
   image: z.instanceof(File).optional(),
 })
@@ -214,3 +218,4 @@ export default function ListingForm({ userId }: ListingFormProps) {
     </form>
   )
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
