@@ -1,8 +1,8 @@
-// I lowkey...don't need these?? Since I'm using prisma? I learned that later though. But this is just basic CRUD. Not even really using it.
 import { prisma } from "@/lib/database"
 import { NextRequest, NextResponse } from "next/server";
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import { put } from '@vercel/blob'
+import { revalidatePath } from 'next/cache'
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -19,51 +19,30 @@ export async function GET(request: NextRequest) {
   }
 }
 
-
-
-// Delete a listing by ID. Lowkey don't need this route if i just use prisma LOL
-
-// export async function DELETE(
-//   request: NextRequest,
-//   { params }: { params: { id: string } }
-// ) {
-//   try {
-//     const id = params.id;
-
-//     const deletedListing = await prisma.listing.delete({
-//       where: { id },
-//     });
-
-//     return NextResponse.json({ message: "Listing deleted successfully", deletedListing }, { status: 200 });
-//   } catch (error) {
-//     console.error('Error deleting listing:', error);
-//     return NextResponse.json({ error: "Failed to delete listing" }, { status: 500 });
-//   }
-// }
-
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const data = await request.json();
-    console.log('Received request body:', JSON.stringify(data, null, 2));
-    
-    const { title, description, price, imageUrl, userId } = data;
-    
-    // Log individual fields
-    console.log('Parsed fields:', {
+    const formData = await request.formData();
+    const title = formData.get('title') as string;
+    const description = formData.get('description') as string;
+    const price = parseFloat(formData.get('price') as string);
+    const userId = formData.get('userId') as string;
+    const image = formData.get('image') as File;
+
+    console.log('Received form data:', {
       title,
       description,
       price: typeof price + ' -> ' + price,
-      imageUrl,
       userId,
+      image: image ? image.name : 'No image provided',
     });
 
     // Validate all required fields are present
-    if (!title || !description || price === undefined || !imageUrl || !userId) {
-      console.error('Missing required fields:', { title, description, price, imageUrl, userId });
+    if (!title || !description || isNaN(price) || !userId || !image) {
+      console.error('Missing required fields:', { title, description, price, userId, image });
       return NextResponse.json(
         { 
           error: "Missing required fields",
-          missingFields: Object.entries({ title, description, price, imageUrl, userId })
+          missingFields: Object.entries({ title, description, price, userId, image })
             .filter(([_, value]) => !value)
             .map(([key]) => key)
         }, 
@@ -81,18 +60,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validate price is a number
-    if (typeof price !== 'number') {
-      console.error('Invalid price format:', {
-        value: price,
-        type: typeof price
-      });
-      return NextResponse.json(
-        { error: "Price must be a number" },
-        { status: 400 }
-      );
-    }
-
     // First check if the user exists
     const userExists = await prisma.user.findUnique({
       where: { id: userId },
@@ -106,12 +73,17 @@ export async function POST(request: Request) {
       );
     }
 
+    // Upload image to Vercel Blob
+    console.log('Uploading image to Vercel Blob');
+    const blob = await put(image.name, image, { access: 'public' });
+    console.log('Image uploaded successfully:', blob.url);
+
     // Log attempt to create listing
     console.log('Attempting to create listing with data:', {
       title,
       description,
       price,
-      imageUrl,
+      imageUrl: blob.url,
       userId,
     });
 
@@ -121,12 +93,15 @@ export async function POST(request: Request) {
         title,
         description,
         price,
-        imageUrl,
+        imageUrl: blob.url,
         userId,
       },
     });
 
     console.log('Successfully created listing:', newListing);
+
+    revalidatePath('/') // Revalidate the home page
+    revalidatePath('/dashboard') // Revalidate the dashboard
 
     return NextResponse.json(newListing, { status: 201 });
   } catch (error: any) {
@@ -150,47 +125,3 @@ export async function POST(request: Request) {
     );
   }
 }
-/* eslint-enable @typescript-eslint/no-explicit-any */
-/* eslint-enable @typescript-eslint/no-unused-vars */
-
-// Old route
-// export async function POST(request: Request) {
-//   try {
-//     const { title, description, price, imageUrl, userId } = await request.json();
-
-//     const newListing = await prisma.listing.create({
-//       data: {
-//         title,
-//         description,
-//         price,
-//         imageUrl,
-//         userId, // Ensure you're passing the authenticated user's ID here
-//       },
-//     });
-
-//     return NextResponse.json(newListing, { status: 201 });
-//   } catch (error) {
-//     return NextResponse.json({ error: "Failed to create listing" }, { status: 500 });
-//   }
-// }
-
-
-// Not implementing yet.
-// export async function PUT(request: Request, { params }: { params: { id: string } }) {
-//   try {
-//     const { id } = params; // Get the ID from the URL params
-//     const data = await request.json();
-
-//     const updatedListing = await prisma.listing.update({
-//       where: { id },
-//       data, 
-//     });
-
-//     return NextResponse.json(updatedListing, { status: 200 });
-//   } catch (error) {
-//     return NextResponse.json({ error: "Failed to update listing" }, { status: 500 });
-//   }
-// }
-
-
-

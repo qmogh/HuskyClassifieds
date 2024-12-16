@@ -11,28 +11,22 @@ const serverFormSchema = formSchema.extend({
 
 type ServerFormData = z.infer<typeof serverFormSchema>
 
-export async function createListing(data: ServerFormData) {
-  const validatedFields = serverFormSchema.safeParse(data)
 
-  if (!validatedFields.success) {
-    return { error: "Invalid form data" }
-  }
-
-  const { userId, ...listingData } = validatedFields.data
-
+export async function createListing(formData: FormData) {
   try {
-    const newListing = await prisma.listing.create({
-      data: {
-        ...listingData,
-        user: { connect: { id: userId } },
-      },
+    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/createListing`, {
+      method: 'POST',
+      body: formData,
     })
 
-    console.log(newListing)
+    const result = await response.json()
+
+    if (!response.ok) {
+      throw new Error(result.error || "An unexpected error occurred.")
+    }
 
     revalidatePath('/') // Revalidate the home page
     revalidatePath('/dashboard') // Revalidate the dashboard
-    console.log("Paths Revalidated!")
 
     return { success: "Listing created successfully" }
   } catch (error) {
@@ -40,3 +34,34 @@ export async function createListing(data: ServerFormData) {
     return { error: "Failed to create listing" }
   }
 }
+
+// export async function createListing(data: ServerFormData) {
+//   const validatedFields = serverFormSchema.safeParse(data)
+
+//   if (!validatedFields.success) {
+//     return { error: "Invalid form data" }
+//   }
+
+//   const { userId, ...listingData } = validatedFields.data
+
+//   try {
+//     const newListing = await prisma.listing.create({
+//       data: {
+//         ...listingData,
+//         user: { connect: { id: userId } },
+//       },
+//     })
+
+//     console.log(newListing)
+
+//     revalidatePath('/') // Revalidate the home page
+//     revalidatePath('/dashboard') // Revalidate the dashboard
+//     console.log("Paths Revalidated!")
+
+//     return { success: "Listing created successfully" }
+//   } catch (error) {
+//     console.error('Error creating listing:', error)
+//     return { error: "Failed to create listing" }
+//   }
+// }
+
