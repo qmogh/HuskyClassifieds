@@ -12,6 +12,9 @@ import { Session } from "next-auth";
 import { auth } from "@/auth"
 import { Metadata } from 'next'
 
+
+
+
 export const metadata: Metadata = {
   title: 'Dashboard',
 }
@@ -46,8 +49,9 @@ export default async function DashboardPage() {
 
   const listings = await prisma.listing.findMany({
     where: { userId },
+  
   })
-
+  const num = listings.length;
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
