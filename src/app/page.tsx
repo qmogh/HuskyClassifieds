@@ -9,6 +9,7 @@ import SearchComponent from "@/components/ui/SearchComponent"
 import { searchListings } from "@/actions/searchListings"
 import { auth } from "@/auth"
 import Title from "@/components/ui/Title"
+import { Analytics } from "@vercel/analytics/react"
 export default async function Home({
   searchParams,
 }: {
@@ -27,6 +28,7 @@ export default async function Home({
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
+      <Analytics />
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="mb-8">
