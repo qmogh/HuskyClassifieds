@@ -12,14 +12,6 @@ export const {
     adapter: PrismaAdapter(prisma),
     session: {
         strategy: "jwt",
-        maxAge: 24 * 60 * 60, // 24 hours in seconds
-    },
-    jwt: {
-        maxAge: 24 * 60 * 60, // 24 hours in seconds
-    },
-    pages: {
-        signIn: '/login',
-        error: '/error',
     },
     ...authConfig
 })

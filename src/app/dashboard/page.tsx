@@ -51,7 +51,7 @@ export default async function DashboardPage() {
     where: { userId },
   
   })
-  // const num = listings.length;
+  const num = listings.length;
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
