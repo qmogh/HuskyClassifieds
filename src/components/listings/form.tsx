@@ -6,7 +6,6 @@ import { z } from "zod"
 import { useState } from "react"
 import { formSchema } from "@/schemas"
 import { Upload, X } from 'lucide-react'
-import Confetti from 'react-confetti'
 
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -217,7 +216,6 @@ export default function ListingForm({ userId }: ListingFormProps) {
         {isSubmitting ? "Submitting..." : "Submit Listing"}
       </button>
     </form>
-    <Conf
   )
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
