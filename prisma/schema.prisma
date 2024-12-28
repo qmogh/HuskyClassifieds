@@ -24,16 +24,23 @@ model User {
     
 }
 
+// model VerificationToken { 
+//   id String @id @default(auto()) @map("_id") @db.ObjectId
+//   identifier String?
+//   email String?
+//   token String @unique
+//   expires DateTime
+
+//   @@unique([identifier, token])
+// }
 model VerificationToken { 
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  identifier String?
-  email String?
-  token String @unique
-  expires DateTime
+  identifier String    // Remove the optional (?) marker
+  token      String   @unique
+  expires    DateTime
 
   @@unique([identifier, token])
 }
-
 
 model Listing {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId

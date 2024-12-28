@@ -1,24 +1,3 @@
-
-// import NodeMailer from "next-auth/providers/nodemailer";
-
-// import type { NextAuthConfig } from "next-auth";
-
-// export default {
-//     providers: [NodeMailer({
-//         id: 'email',
-//         name: 'email',
-//         server: {
-//             host: process.env.EMAIL_SERVER_HOST,
-//             port: Number(process.env.EMAIL_SERVER_PORT),
-//             auth: {
-//                 user: process.env.EMAIL_SERVER_USER,
-//                 pass: process.env.EMAIL_SERVER_PASSWORD
-//             }
-//         },
-//         from: process.env.EMAIL_FROM,
-//     })],
-// } satisfies NextAuthConfig
-
 import NodeMailer from "next-auth/providers/nodemailer";
 import nodemailer from "nodemailer";
 import type { NextAuthConfig } from "next-auth";
@@ -68,7 +47,7 @@ export default {
           throw error;
         }
       },
-      maxAge: 12 * 60 * 60, 
+      maxAge: 24 * 60 * 60,
     }),
   ],
 } satisfies NextAuthConfig;
