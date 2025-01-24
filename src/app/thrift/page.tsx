@@ -11,38 +11,32 @@ const sampleListings = [
   {
     id: 1,
     title: "Vintage UConn Hoodie",
-    price: 25.0,
     imageUrl:
       "https://images.footballfanatics.com/uconn-huskies/mens-mitchell-and-ness-gry-university-of-connecticut-vintage-logo-satin-fleece-crew_ss10_p-101406084+u-crjnbvjgclvoantl0xgk+v-afwftxmk9vw78e3oqvee.jpg?_hv=2",
   },
   {
     id: 2,
     title: "Cool Vintage Jacket",
-    price: 40.0,
     imageUrl: "https://i.ebayimg.com/images/g/A68AAOSwMAxj5eoP/s-l400.jpg",
   },
   {
     id: 3,
     title: "Dorm Room Decor Set",
-    price: 15.0,
     imageUrl: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&h=500&fit=crop",
   },
   {
     id: 4,
     title: "UConn Basketball Jersey",
-    price: 30.0,
     imageUrl: "https://images.unsplash.com/photo-1518281420975-50db6e5d0a97?w=500&h=500&fit=crop",
   },
   {
     id: 5,
     title: "Study Desk and Chair",
-    price: 50.0,
     imageUrl: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=500&h=500&fit=crop",
   },
   {
     id: 6,
     title: "Winter Coat",
-    price: 35.0,
     imageUrl: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&h=500&fit=crop",
   },
 ]
@@ -119,7 +113,7 @@ export default function Home() {
                 />
                 <CardContent className="p-4">
                   <h3 className="text-lg font-semibold mb-2">{listing.title}</h3>
-                  <p className="text-2xl font-bold text-green-600">${listing.price.toFixed(2)}</p>
+                  {/* Removed price */}
                   <Button className="mt-4 w-full bg-gray-800 hover:bg-gray-900 text-white">View Item</Button>
                 </CardContent>
               </Card>
@@ -152,4 +146,3 @@ export default function Home() {
     </div>
   )
 }
-
