@@ -86,7 +86,7 @@ export default function Home() {
       <main className="flex-grow container mx-auto px-4 py-8">
         <section className="mb-16 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-800">Discover Campus Treasures</h1>
-          <p className="text-xl mb-8 text-gray-600">Find amazing deals on student essentials and more</p>
+          <p className="text-xl mb-8 text-gray-600">The best part? Everything is free!</p>
           <div className="relative max-w-md mx-auto">
             <input
               type="text"
@@ -134,12 +134,12 @@ export default function Home() {
         <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
           <p>&copy; 2025 UConn Thrift Den. All rights reserved.</p>
           <div className="mt-4 md:mt-0 space-x-4">
-            {/* <Link href="/privacy" className="hover:text-green-600 transition-colors">
+            <Link href="/privacy" className="hover:text-green-600 transition-colors">
               Privacy Policy
             </Link>
             <Link href="/terms" className="hover:text-green-600 transition-colors">
               Terms of Service
-            </Link> */}
+            </Link>
           </div>
         </div>
       </footer>
