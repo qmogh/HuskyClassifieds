@@ -134,12 +134,12 @@ export default function Home() {
         <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
           <p>&copy; 2025 UConn Thrift Den. All rights reserved.</p>
           <div className="mt-4 md:mt-0 space-x-4">
-            <Link href="/privacy" className="hover:text-green-600 transition-colors">
+            {/* <Link href="/privacy" className="hover:text-green-600 transition-colors">
               Privacy Policy
             </Link>
             <Link href="/terms" className="hover:text-green-600 transition-colors">
               Terms of Service
-            </Link>
+            </Link> */}
           </div>
         </div>
       </footer>
